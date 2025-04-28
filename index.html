@@ -184,7 +184,33 @@
               }
             });
             
-            
+                  // Event untuk mengubah status
+      $('.ubah-status').click(async function() {
+        const docId = $(this).data('id'); // Ambil ID dokumen
+        const newStatus = $(this).data('status'); // Ambil status baru
+        
+        // Perbarui status di Firestore
+        await ubahStatus(docId, newStatus);
+        location.reload(); // Reload halaman untuk memperbarui tampilan
+      });
+      
+      // Event untuk menghapus data
+      $('.tombol-hapus').click(async function() {
+        const docId = $(this).data('id'); // Ambil ID dokumen
+        
+        // Hapus data dari Firestore
+        await hapusData(docId);
+        location.reload(); // Reload halaman untuk memperbarui tampilan
+      });
+      
+      // Event untuk mengubah data
+      $('.tombol-ubah').click(function() {
+      const docId = $(this).data('id'); // Ambil ID dokumen
+      
+      // Arahkan ke halaman form dengan parameter docId
+      window.location.href = `ubah-todolist.html?docId=${docId}`;
+      });
+      });
   </script>
 </body>
 
