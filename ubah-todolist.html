@@ -122,7 +122,88 @@
   <!-- Link kembali ke halaman utama -->
   <a href="index.html">Data To Do List</a>
   
-  
+    <script type="module">
+    import { ambilData, ubahData } from './main.js';
+    
+    // Ambil elemen form
+    let tombolUbah = document.getElementById('tombol-ubah');
+    let elemenNama = document.getElementById('input-nama');
+    let elemenPrioritas = document.getElementById('input-prioritas');
+    let elemenStatus = document.getElementById('input-status');
+    let elemenTanggal = document.getElementById('input-tanggal');
+    
+    let errorNama = document.getElementById('error-nama');
+    let errorPrioritas = document.getElementById('error-prioritas');
+    let errorStatus = document.getElementById('error-status');
+    let errorTanggal = document.getElementById('error-tanggal');
+    
+    // Ambil docId dari URL
+    const queryString = window.location.search;
+    const parameterURL = new URLSearchParams(queryString);
+    const docId = parameterURL.get('docId');
+    
+    try {
+      // Ambil data berdasarkan docId dan tampilkan di form
+      const data = await ambilData(docId);
+      
+      if (data) {
+        elemenNama.value = data.nama || '';
+        elemenPrioritas.value = data.prioritas || '';
+        elemenStatus.value = data.status || '';
+        elemenTanggal.value = data.tanggal || '';
+      } else {
+        alert('Data tidak ditemukan!');
+      }
+    } catch (error) {
+      console.error(error.message);
+      alert('Terjadi kesalahan saat mengambil data!');
+    }
+    
+    // Event listener untuk tombol ubah
+    tombolUbah.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      let isValid = true;
+      
+      // Validasi input Nama
+      if (elemenNama.value.trim() === '') {
+        errorNama.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorNama.classList.add('d-none');
+      }
+      
+      // Validasi input Prioritas
+      if (elemenPrioritas.value === '') {
+        errorPrioritas.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorPrioritas.classList.add('d-none');
+      }
+      
+      // Validasi input Status
+      if (elemenStatus.value === '') {
+        errorStatus.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorStatus.classList.add('d-none');
+      }
+      
+      // Validasi input Tanggal
+      if (elemenTanggal.value === '') {
+        errorTanggal.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorTanggal.classList.add('d-none');
+      }
+      
+      // Jika semua validasi lolos, perbarui data
+      if (isValid) {
+        await ubahData(docId, elemenNama.value, elemenPrioritas.value, elemenStatus.value, elemenTanggal.value);
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
 </body>
 
 </html>

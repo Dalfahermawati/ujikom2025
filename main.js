@@ -54,3 +54,29 @@ export async function tambahData(nama, prioritas, status, tanggal) {
     console.log('gagal menambah todolist1 ' + e);
   }
 }
+export async function hapusData(docId) {
+  await deleteDoc(doc(db, "todolist1", docId));
+}
+
+export async function ubahData(docId, nama, prioritas, status, tanggal) {
+  await updateDoc(doc(db, "todolist1", docId), {
+    nama: nama,
+    prioritas: prioritas,
+    status: status,
+    tanggal: tanggal,
+  });
+}
+
+export async function ambilData(docId) {
+  const docRef = await doc(db, "todolist1", docId);
+  const docSnap = await getDoc(docRef);
+  
+  return await docSnap.data();
+}
+
+export async function ubahStatus(docId, status) {
+  const docRef = doc(db, "todolist1", docId);
+  await updateDoc(docRef, {
+    status: status,
+  });
+}
