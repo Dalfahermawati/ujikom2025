@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 
 <head>
   <meta charset="UTF-8">
@@ -89,7 +89,7 @@
 </ul>
 </div>
 
-<body>
+<body class="d-flex flex-column h-100">
   <h1>To Do List</h1>
   <!-- Tabel untuk tugas yang belum selesai -->
   <h2>Tugas Belum Selesai</h2>
@@ -124,6 +124,7 @@
     <tbody>
     </tbody>
   </table>
+    
   
   <script type="module">
     import { ambilDaftarData, hapusData, ubahStatus } from './main.js';
@@ -220,6 +221,10 @@
       });
       });
   </script>
+
+<footer class="py-3 bg-danger-subtle mt-auto">
+  <p class="text-center text-body-primary">&copy; Uji Kompetensi Keahlian 2024/2025</p>
+</footer>
 </body>
 
 </html>
