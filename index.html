@@ -117,7 +117,75 @@
   </table>
   
   <a href="form-todolist.html">Tambah Data</a>
-  
+  <script type="module">
+    import { ambilDaftarData, hapusData, ubahStatus } from './main.js';
+    
+    $(document).ready(async function() {
+            // Elemen tabel untuk tugas yang belum selesai dan selesai
+            let elemenDataBelumSelesai = $("#todolist1 > tbody");
+            let elemenDataSelesai = $("#todolist-selesai > tbody");
+            
+            // Ambil data dari Firestore
+            let dataToDoList = await ambilDaftarData();
+            
+            // Sortir data berdasarkan prioritas (Tinggi, Sedang, Rendah)
+            dataToDoList.sort((a, b) => {
+              const priorityOrder = { "Tinggi": 1, "Sedang": 2, "Rendah": 3 };
+              return priorityOrder[a.prioritas] - priorityOrder[b.prioritas];
+            });
+            
+            let nomorBelumSelesai = 1; // Nomor urut untuk tugas belum selesai
+            let nomorSelesai = 1; // Nomor urut untuk tugas selesai
+            
+            // Iterasi data dan masukkan ke tabel
+            dataToDoList.forEach((data) => {
+              if (data.status === "Belum Selesai") {
+                // Tambahkan baris untuk tugas yang belum selesai
+                elemenDataBelumSelesai.append(
+                  `<tr>
+              <th>${nomorBelumSelesai}</th>
+              <td>${data.nama}</td>
+              <td>${data.prioritas}</td>
+              <td>
+                <!-- Tombol untuk mengubah status menjadi Selesai -->
+                <button class="btn btn-warning ubah-status" data-id="${data.id}" data-status="Selesai">${data.status}</button>
+              </td>
+              <td>${data.tanggal}</td>
+              <td>
+                <!-- Tombol untuk menghapus data -->
+                <button class="btn btn-danger tombol-hapus" data-id="${data.id}">Hapus</button>
+                <!-- Tombol untuk mengubah data -->
+                <button class="btn btn-primary tombol-ubah" data-id="${data.id}">Ubah</button>
+              </td>
+            </tr>`
+                );
+                nomorBelumSelesai++;
+              } else {
+                // Tambahkan baris untuk tugas yang sudah selesai
+                elemenDataSelesai.append(
+                  `<tr>
+              <th>${nomorSelesai}</th>
+              <td>${data.nama}</td>
+              <td>${data.prioritas}</td>
+              <td>
+                <!-- Tombol untuk mengubah status menjadi Belum Selesai -->
+                <button class="btn btn-success ubah-status" data-id="${data.id}" data-status="Belum Selesai">${data.status}</button>
+              </td>
+              <td>${data.tanggal}</td>
+              <td>
+                <!-- Tombol untuk menghapus data -->
+                <button class="btn btn-danger tombol-hapus" data-id="${data.id}">Hapus</button>
+                <!-- Tombol untuk mengubah data -->
+                <button class="btn btn-primary tombol-ubah" data-id="${data.id}">Ubah</button>
+              </td>
+            </tr>`
+                );
+                nomorSelesai++;
+              }
+            });
+            
+            
+  </script>
 </body>
 
 </html>

@@ -37,3 +37,20 @@ export async function ambilDaftarData() {
   });
   return hasil;
 }
+export function formatAngka(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+export async function tambahData(nama, prioritas, status, tanggal) {
+  try {
+    const dokRef = await addDoc(collection(db, 'todolist1'), {
+      nama: nama,
+      prioritas: prioritas,
+      status: status,
+      tanggal: tanggal,
+    });
+    console.log('berhasil menambah todolist1 ' + dokRef.id);
+  }
+  catch (e) {
+    console.log('gagal menambah todolist1 ' + e);
+  }
+}

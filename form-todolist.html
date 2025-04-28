@@ -110,6 +110,60 @@
   </form>
   <a href="index.html">Data To Do List</a>
   
+  <script type="module">
+    import { tambahData } from './main.js';
+    
+    let tombolTambah = document.getElementById('tombol-tambah');
+    let elemenNama = document.getElementById('input-nama');
+    let elemenPrioritas = document.getElementById('input-prioritas');
+    let elemenStatus = document.getElementById('input-status');
+    let elemenTanggal = document.getElementById('input-tanggal');
+    
+    let errorNama = document.getElementById('error-nama');
+    let errorPrioritas = document.getElementById('error-prioritas');
+    let errorStatus = document.getElementById('error-status');
+    let errorTanggal = document.getElementById('error-tanggal');
+    
+    tombolTambah.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      let isValid = true;
+      
+      if (elemenNama.value.trim() === '') {
+        errorNama.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorNama.classList.add('d-none');
+      }
+      
+      if (elemenPrioritas.value === '') {
+        errorPrioritas.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorPrioritas.classList.add('d-none');
+      }
+      
+      if (elemenStatus.value === '') {
+        errorStatus.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorStatus.classList.add('d-none');
+      }
+      
+      if (elemenTanggal.value === '') {
+        errorTanggal.classList.remove('d-none');
+        isValid = false;
+      } else {
+        errorTanggal.classList.add('d-none');
+      }
+      
+      if (isValid) {
+        await tambahData(elemenNama.value, elemenPrioritas.value, elemenStatus.value, elemenTanggal.value);
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+  
 </body>
 
 </html>
