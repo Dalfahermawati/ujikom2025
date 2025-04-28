@@ -72,6 +72,14 @@
     font-size: 18px;
   }
 </style>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    menu
+  </button>
+  <ul class="dropdown-menu">
+  <li><a class="dropdown-item" href="index.html">Back</a></li>
+</ul>
+</div>
 
 <body class="m-3">
   <h1>Ubah To Do List 🦋</h1>
@@ -118,9 +126,6 @@
     <!-- Tombol untuk mengubah data -->
     <button type="button" class="btn btn-primary" id="tombol-ubah">Ubah</button>
   </form>
-  
-  <!-- Link kembali ke halaman utama -->
-  <a href="index.html">Data To Do List</a>
   
     <script type="module">
     import { ambilData, ubahData } from './main.js';

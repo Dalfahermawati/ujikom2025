@@ -72,6 +72,14 @@
     font-size: 18px;
   }
 </style>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    menu
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="index.html">Back</a></li>
+  </ul>
+</div>
 
 <body class="m-3">
   <h1>Form To Do List 🎀</h1>
@@ -108,7 +116,6 @@
     </div>
     <button type="button" class="btn btn-primary" id="tombol-tambah">Simpan</button>
   </form>
-  <a href="index.html">Data To Do List</a>
   
   <script type="module">
     import { tambahData } from './main.js';
